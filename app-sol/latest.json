@@ -2,8 +2,8 @@
   "schemaVersion": 1,
   "app": "app-sol",
   "channel": "stable",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "status": "bootstrap",
-  "notes": "Unified update feed initialized. Automatic update package publishing is not enabled for this bootstrap entry yet.",
+  "notes": "App Sol 0.2.5 introduces the unified in-app updater. This bootstrap version is the final manual-install bridge into the Moon App Updates feed.",
   "platforms": {}
 }
