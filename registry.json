@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "apps": {
+    "app-sol": {
+      "name": "App Sol",
+      "stableManifest": "app-sol/latest.json"
+    },
+    "novel-os": {
+      "name": "NovelOS",
+      "stableManifest": "novel-os/latest.json"
+    },
+    "february": {
+      "name": "FebruaryOS",
+      "stableManifest": "february/latest.json"
+    },
+    "moon-lab": {
+      "name": "MoonLab",
+      "stableManifest": "moon-lab/latest.json"
+    }
+  }
+}
