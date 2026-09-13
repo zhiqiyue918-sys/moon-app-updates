@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "app": "app-sol",
+  "channel": "stable",
+  "version": "0.2.4",
+  "status": "bootstrap",
+  "notes": "Unified update feed initialized. Automatic update package publishing is not enabled for this bootstrap entry yet.",
+  "platforms": {}
+}
