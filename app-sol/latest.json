@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "app-sol",
   "channel": "stable",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "status": "stable",
-  "notes": "重做 App Sol 图标；自动分类改为保守模式；设置页现已可用。",
+  "notes": "新增“我的开发”独立栏目，把自己做的软件和开发工具分开；支持自动识别已知自制项目与右键手动归类。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/app-sol/releases/0.2.6/AppSol_0.2.6_x64-setup.exe",
-      "sha256": "64915f3358ce1be2586529cdedbd9227a64e41583aa62ce73f0c6fc5c07f3574"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/app-sol/releases/0.2.7/AppSol_0.2.7_x64-setup.exe",
+      "sha256": "d54ed5d32ee3b4b470e2aa5542e771a10142d9079890027a561bc22a72976d2c"
     }
   }
 }
