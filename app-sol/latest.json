@@ -2,8 +2,13 @@
   "schemaVersion": 1,
   "app": "app-sol",
   "channel": "stable",
-  "version": "0.2.5",
-  "status": "bootstrap",
-  "notes": "App Sol 0.2.5 introduces the unified in-app updater. This bootstrap version is the final manual-install bridge into the Moon App Updates feed.",
-  "platforms": {}
+  "version": "0.2.6",
+  "status": "stable",
+  "notes": "重做 App Sol 图标；自动分类改为保守模式；设置页现已可用。",
+  "platforms": {
+    "windows-x86_64": {
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/app-sol/releases/0.2.6/AppSol_0.2.6_x64-setup.exe",
+      "sha256": "64915f3358ce1be2586529cdedbd9227a64e41583aa62ce73f0c6fc5c07f3574"
+    }
+  }
 }
