@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.7",
+  "version": "0.4.8",
   "status": "stable",
-  "notes": "修复连续实验停止：停止在当前题结束后立即生效，不再等待整批；新增“作废本题→垃圾桶”，作废题不进入正常历史/反馈/优化证据；运行中仍锁定模型，停止后可切换。",
+  "notes": "历史页补齐垃圾桶：正常历史可直接作废，垃圾桶可查看完整运行快照并恢复；作废题继续与正常历史、反馈经验和Optimizer证据隔离。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.7/MoonLab-Setup-0.4.7.exe",
-      "sha256": "7657bbc07936967cc3be0c8b3b9672a084537d418c227cdb3d6be94af45e89b0"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.8/MoonLab-Setup-0.4.8.exe",
+      "sha256": "f3e9716979cd6c263332cfb9a8eb857b162a8b7dfce30292ccf829ecf53ddee9"
     }
   }
 }
