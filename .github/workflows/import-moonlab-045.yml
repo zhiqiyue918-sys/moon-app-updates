@@ -1,0 +1,19 @@
+name: Import MoonLab 0.4.5 release
+
+on:
+  push:
+    paths:
+      - '.github/workflows/import-moonlab-045.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Import packaged MoonLab release
+        shell: pwsh
+        run: |
+          Write-Host 'Placeholder importer. The signed artifact URL is filled after MoonLab 0.4.5 build succeeds.'
