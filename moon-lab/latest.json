@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "status": "stable",
-  "notes": "修复桌面自动更新：不再依赖私有仓库 Git/认证；安装前安全停止 MoonLab 后台服务，后续版本可后台下载并在正常关闭一次后自动安装重开。",
+  "notes": "接入400题正式题库并支持本地Ollama夜间连续跑题；解题端不接收难度/领域等开发标签；本地Reader+Judge默认不触发云端Optimizer；改进Windows覆盖安装。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.5/MoonLab-Setup-0.4.5.exe",
-      "sha256": "7967f5cb50a155c18e4acd6dfeab4716e0c63dccadfbf6d726ba9d2cb2339f0e"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.6/MoonLab-Setup-0.4.6.exe",
+      "sha256": "4fcb64591ab0c8796999b9bdd51cfa69cf8c4dd8e69385f8b89e5bd11f947898"
     }
   }
 }
