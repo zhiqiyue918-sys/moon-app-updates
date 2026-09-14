@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "app-sol",
   "channel": "stable",
-  "version": "0.2.8",
+  "version": "0.2.9",
   "status": "stable",
-  "notes": "修复桌面快捷方式图标：每次安装或更新都会重建快捷方式、显式绑定 App Sol 程序图标，并通知 Windows Explorer 刷新图标缓存。",
+  "notes": "启动改为优先读取本地软件库缓存：已有缓存时立即显示，不再每次进入都阻塞式全量扫描；缓存超过10分钟后只在后台刷新，手动“重新扫描”仍会强制全量读取。软件图标也会随缓存复用。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/app-sol/releases/0.2.8/AppSol_0.2.8_x64-setup.exe",
-      "sha256": "83d07aaea4f7a90976766bfe1d10988d16bb9aa6ec850dddc7dc83d15443cbc9"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/app-sol/releases/0.2.9/AppSol_0.2.9_x64-setup.exe",
+      "sha256": "92f7db98b8a4202328d50e6cb30dd7f2062be370cc6e7d3a66234775022a060b"
     }
   }
 }
