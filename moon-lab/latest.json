@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.6",
+  "version": "0.4.7",
   "status": "stable",
-  "notes": "接入400题正式题库并支持本地Ollama夜间连续跑题；解题端不接收难度/领域等开发标签；本地Reader+Judge默认不触发云端Optimizer；改进Windows覆盖安装。",
+  "notes": "修复连续实验停止：停止在当前题结束后立即生效，不再等待整批；新增“作废本题→垃圾桶”，作废题不进入正常历史/反馈/优化证据；运行中仍锁定模型，停止后可切换。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.6/MoonLab-Setup-0.4.6.exe",
-      "sha256": "4fcb64591ab0c8796999b9bdd51cfa69cf8c4dd8e69385f8b89e5bd11f947898"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.7/MoonLab-Setup-0.4.7.exe",
+      "sha256": "7657bbc07936967cc3be0c8b3b9672a084537d418c227cdb3d6be94af45e89b0"
     }
   }
 }
