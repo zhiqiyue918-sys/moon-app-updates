@@ -1,0 +1,61 @@
+name: Publish App Sol 0.2.10
+
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-app-sol-0.2.10.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout update repository
+        uses: actions/checkout@v4
+
+      - name: Import validated App Sol build artifact
+        shell: pwsh
+        run: |
+          $issue = Invoke-RestMethod -Uri 'https://api.github.com/repos/zhiqiyue918-sys/moon-app-updates/issues/1' -Headers @{ 'User-Agent' = 'moon-app-updates' }
+          $url = (($issue.body -split "`n") | Where-Object { $_ -match '^https://' } | Select-Object -First 1).Trim()
+          if (-not $url) { throw 'Temporary artifact URL not found.' }
+          Invoke-WebRequest -Uri $url -OutFile artifact.zip
+          Expand-Archive -Path artifact.zip -DestinationPath artifact -Force
+          $installer = Get-ChildItem artifact -Recurse -Filter '*.exe' | Select-Object -First 1
+          if (-not $installer) { throw 'Installer not found in build artifact.' }
+          $hash = (Get-FileHash $installer.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($hash -ne '41eaae066559b6785b33bebca19fa01249ca2fb14f9d666bbfda2ddd9bfe93c7') { throw "Installer hash mismatch: $hash" }
+          New-Item -ItemType Directory -Force -Path 'app-sol/releases/0.2.10' | Out-Null
+          Copy-Item $installer.FullName 'app-sol/releases/0.2.10/AppSol_0.2.10_x64-setup.exe' -Force
+
+      - name: Publish stable manifest
+        shell: pwsh
+        run: |
+          $manifest = @'
+          {
+            "schemaVersion": 1,
+            "app": "app-sol",
+            "channel": "stable",
+            "version": "0.2.10",
+            "status": "stable",
+            "notes": "修复启动白闪：原生窗口和 WebView 从创建开始使用 App Sol 深蓝背景，HTML 首帧也提前使用同色背景。",
+            "platforms": {
+              "windows-x86_64": {
+                "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/app-sol/releases/0.2.10/AppSol_0.2.10_x64-setup.exe",
+                "sha256": "41eaae066559b6785b33bebca19fa01249ca2fb14f9d666bbfda2ddd9bfe93c7"
+              }
+            }
+          }
+          '@
+          [System.IO.File]::WriteAllText((Join-Path $PWD 'app-sol/latest.json'), $manifest, (New-Object System.Text.UTF8Encoding($false)))
+
+      - name: Commit update package and feed
+        shell: pwsh
+        run: |
+          git config user.name 'moon-app-updates-bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add app-sol/releases/0.2.10/AppSol_0.2.10_x64-setup.exe app-sol/latest.json
+          git commit -m 'release: App Sol 0.2.10'
+          git push
