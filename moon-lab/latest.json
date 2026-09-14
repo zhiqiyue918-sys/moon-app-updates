@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "app": "moon-lab",
+  "channel": "stable",
+  "version": "0.0.0",
+  "status": "bootstrap",
+  "notes": "MoonLab public update channel initialized. A real stable package will replace this manifest after validation.",
+  "platforms": {}
+}
