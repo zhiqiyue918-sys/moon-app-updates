@@ -1,1 +1,0 @@
-Public channel is active; stable package will be published after MoonLab 0.4.5 validation.
