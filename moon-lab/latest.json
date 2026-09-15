@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.9",
+  "version": "0.4.10",
   "status": "stable",
-  "notes": "一次性合并 0.4.7-0.4.9：连续实验可在当前题结束后停止；新增作废题与历史垃圾桶；Judge v3 改为实用质量评分，程序固定计算总分，85 为好用线、像月亮 8 为单独门槛，减少 90/92 分数扎堆。",
+  "notes": "修复审阅台‘跑 1 题’错误固定使用 Golden 第一题和固定牌阵的问题；现在单题从正式题库随机抽题，三张牌与正逆位使用独立随机源重新抽取，Golden 仅保留给回归测试。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.9/MoonLab-Setup-0.4.9.exe",
-      "sha256": "d9e9749ede64e8ef7f69cfc8b0a3849a2ec5e77918033e74fde69d0179942a1d"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.10/MoonLab-Setup-0.4.10.exe",
+      "sha256": "c10591544a7c3cb7ca37723781306688254127043dc31e29dd620f17fc29c34e"
     }
   }
 }
