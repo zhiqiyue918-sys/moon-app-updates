@@ -1,0 +1,68 @@
+name: Import MoonLab 0.4.9
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/import-moonlab-049.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    env:
+      ARTIFACT_URL: "https://sdmntprwestus3.oaiusercontent.com/files/00000000-012c-81fd-8f9e-463240060bee/raw?se=2026-09-15T10%3A42%3A39Z&sp=r&sv=2026-02-06&sr=b&scid=1863122a-5b52-500d-ae0c-96a2ab99923c&skoid=5e713cdb-766b-475e-a3ca-8adb6cf99aa0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-14T20%3A18%3A45Z&ske=2026-09-15T20%3A18%3A45Z&sks=b&skv=2026-02-06&sig=TvY6%2BbSn1C2v2KZA%2BQP6N0K6cO4uIsFi4kHGerF7z3s%3D"
+      EXPECTED_SHA256: "d9e9749ede64e8ef7f69cfc8b0a3849a2ec5e77918033e74fde69d0179942a1d"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download validated 0.4.9 artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 --retry-delay 2 "$ARTIFACT_URL" -o /tmp/moonlab-049.zip
+          rm -rf /tmp/moonlab-049
+          mkdir -p /tmp/moonlab-049
+          unzip -q /tmp/moonlab-049.zip -d /tmp/moonlab-049
+          test -f /tmp/moonlab-049/desktop/MoonLab-Setup-0.4.9.exe
+          actual=$(sha256sum /tmp/moonlab-049/desktop/MoonLab-Setup-0.4.9.exe | awk '{print $1}')
+          test "$actual" = "$EXPECTED_SHA256"
+
+      - name: Publish immutable package and stable manifest
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p moon-lab/releases/0.4.9
+          cp /tmp/moonlab-049/desktop/MoonLab-Setup-0.4.9.exe moon-lab/releases/0.4.9/MoonLab-Setup-0.4.9.exe
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          manifest = {
+            "schemaVersion": 1,
+            "app": "moon-lab",
+            "channel": "stable",
+            "version": "0.4.9",
+            "status": "stable",
+            "notes": "一次性合并 0.4.7-0.4.9：连续实验可在当前题结束后停止；新增作废题与历史垃圾桶；Judge v3 改为实用质量评分，程序固定计算总分，85 为好用线、像月亮 8 为单独门槛，减少 90/92 分数扎堆。",
+            "platforms": {
+              "windows-x86_64": {
+                "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.9/MoonLab-Setup-0.4.9.exe",
+                "sha256": "d9e9749ede64e8ef7f69cfc8b0a3849a2ec5e77918033e74fde69d0179942a1d"
+              }
+            }
+          }
+          Path('moon-lab/latest.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+          PY
+
+      - name: Commit stable 0.4.9
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add moon-lab/releases/0.4.9/MoonLab-Setup-0.4.9.exe moon-lab/latest.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Publish MoonLab 0.4.9 stable'
+          git push origin HEAD:main
