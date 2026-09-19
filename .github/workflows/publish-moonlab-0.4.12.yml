@@ -1,0 +1,52 @@
+name: Publish MoonLab 0.4.12 stable
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-moonlab-0.4.12.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download validated MoonLab desktop artifact
+        env:
+          SOURCE_URL: 'https://sdmntprwestus3.oaiusercontent.com/files/00000000-c788-81fd-99d6-1ce43353916d/raw?se=2026-09-19T14%3A08%3A31Z&sp=r&sv=2026-02-06&sr=b&scid=013d2c5e-2da9-5eed-87d8-98f273ca2046&skoid=5e713cdb-766b-475e-a3ca-8adb6cf99aa0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-18T19%3A20%3A25Z&ske=2026-09-19T19%3A20%3A25Z&sks=b&skv=2026-02-06&sig=BfXOI9g7P0M8/J906jG2A%2BzyXPyVeDk0sHABTi1dbNI%3D'
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 "$SOURCE_URL" -o /tmp/moonlab-0412.zip
+          rm -rf /tmp/moonlab-0412 && mkdir -p /tmp/moonlab-0412
+          unzip -q /tmp/moonlab-0412.zip -d /tmp/moonlab-0412
+          test -f /tmp/moonlab-0412/desktop/MoonLab-Setup-0.4.12.exe
+          echo '35b4289853cce59f7b7131a472eb9fd5ad201dab50d99a7e72a9fbedc5360775  /tmp/moonlab-0412/desktop/MoonLab-Setup-0.4.12.exe' | sha256sum -c -
+      - name: Publish immutable installer and latest manifest
+        run: |
+          set -euo pipefail
+          mkdir -p moon-lab/releases/0.4.12
+          cp /tmp/moonlab-0412/desktop/MoonLab-Setup-0.4.12.exe moon-lab/releases/0.4.12/MoonLab-Setup-0.4.12.exe
+          cat > moon-lab/latest.json <<'JSON'
+          {
+            "schemaVersion": 1,
+            "app": "moon-lab",
+            "channel": "stable",
+            "version": "0.4.12",
+            "status": "stable",
+            "notes": "接通 MoonLab CURRENT → 正式 MoonCard Runtime：晋升后安全安装5个运行资产，Formal Skill 2.0 保持只读；支持启动同步、SHA 校验、历史与回滚。",
+            "platforms": {
+              "windows-x86_64": {
+                "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.12/MoonLab-Setup-0.4.12.exe",
+                "sha256": "35b4289853cce59f7b7131a472eb9fd5ad201dab50d99a7e72a9fbedc5360775"
+              }
+            }
+          }
+          JSON
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add moon-lab/releases/0.4.12/MoonLab-Setup-0.4.12.exe moon-lab/latest.json
+          git commit -m 'moon-lab: publish 0.4.12 stable'
+          git push origin main
