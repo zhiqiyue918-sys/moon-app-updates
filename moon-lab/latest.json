@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.11",
+  "version": "0.4.12",
   "status": "stable",
-  "notes": "审阅台新增题库随机与自由提问双入口；自由提问可输入真实问题与可选现实背景，走同一套抽牌、Reader、Expression、Judge 与存档链；默认不自动进入 Batch / Optimizer。",
+  "notes": "接通 MoonLab CURRENT → 正式 MoonCard Runtime：晋升后安全安装5个运行资产，Formal Skill 2.0 保持只读；支持启动同步、SHA 校验、历史与回滚。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.11/MoonLab-Setup-0.4.11.exe",
-      "sha256": "043e1961aa388fd35286b8b5d1e6d3a0e54221bc0a634a95b46fed59941814b1"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.12/MoonLab-Setup-0.4.12.exe",
+      "sha256": "35b4289853cce59f7b7131a472eb9fd5ad201dab50d99a7e72a9fbedc5360775"
     }
   }
 }
