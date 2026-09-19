@@ -1,0 +1,52 @@
+name: Publish MoonLab 0.4.11 stable
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-moonlab-0.4.11.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download validated MoonLab desktop artifact
+        env:
+          SOURCE_URL: 'https://sdmntprwestus3.oaiusercontent.com/files/00000000-c42c-81fd-a1a8-f0d84ea55d41/raw?se=2026-09-19T14%3A03%3A49Z&sp=r&sv=2026-02-06&sr=b&scid=b28a5ea5-198d-55c4-8278-0b688ea6647c&skoid=5e713cdb-766b-475e-a3ca-8adb6cf99aa0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-18T20%3A11%3A26Z&ske=2026-09-19T20%3A11%3A26Z&sks=b&skv=2026-02-06&sig=bREuww31KmrJjPJr2YdA8RdEaCYkHTpDpZV/bjszJhQ%3D'
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 "$SOURCE_URL" -o /tmp/moonlab-0411.zip
+          rm -rf /tmp/moonlab-0411 && mkdir -p /tmp/moonlab-0411
+          unzip -q /tmp/moonlab-0411.zip -d /tmp/moonlab-0411
+          test -f /tmp/moonlab-0411/MoonLab-Setup-0.4.11.exe
+          echo '043e1961aa388fd35286b8b5d1e6d3a0e54221bc0a634a95b46fed59941814b1  /tmp/moonlab-0411/MoonLab-Setup-0.4.11.exe' | sha256sum -c -
+      - name: Publish immutable installer and latest manifest
+        run: |
+          set -euo pipefail
+          mkdir -p moon-lab/releases/0.4.11
+          cp /tmp/moonlab-0411/MoonLab-Setup-0.4.11.exe moon-lab/releases/0.4.11/MoonLab-Setup-0.4.11.exe
+          cat > moon-lab/latest.json <<'JSON'
+          {
+            "schemaVersion": 1,
+            "app": "moon-lab",
+            "channel": "stable",
+            "version": "0.4.11",
+            "status": "stable",
+            "notes": "审阅台新增题库随机与自由提问双入口；自由提问可输入真实问题与可选现实背景，走同一套抽牌、Reader、Expression、Judge 与存档链；默认不自动进入 Batch / Optimizer。",
+            "platforms": {
+              "windows-x86_64": {
+                "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.11/MoonLab-Setup-0.4.11.exe",
+                "sha256": "043e1961aa388fd35286b8b5d1e6d3a0e54221bc0a634a95b46fed59941814b1"
+              }
+            }
+          }
+          JSON
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add moon-lab/releases/0.4.11/MoonLab-Setup-0.4.11.exe moon-lab/latest.json
+          git commit -m 'moon-lab: publish 0.4.11 stable'
+          git push origin main
