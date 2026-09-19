@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.10",
+  "version": "0.4.11",
   "status": "stable",
-  "notes": "修复审阅台‘跑 1 题’错误固定使用 Golden 第一题和固定牌阵的问题；现在单题从正式题库随机抽题，三张牌与正逆位使用独立随机源重新抽取，Golden 仅保留给回归测试。",
+  "notes": "审阅台新增题库随机与自由提问双入口；自由提问可输入真实问题与可选现实背景，走同一套抽牌、Reader、Expression、Judge 与存档链；默认不自动进入 Batch / Optimizer。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.10/MoonLab-Setup-0.4.10.exe",
-      "sha256": "c10591544a7c3cb7ca37723781306688254127043dc31e29dd620f17fc29c34e"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.11/MoonLab-Setup-0.4.11.exe",
+      "sha256": "043e1961aa388fd35286b8b5d1e6d3a0e54221bc0a634a95b46fed59941814b1"
     }
   }
 }
