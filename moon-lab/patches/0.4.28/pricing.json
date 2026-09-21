@@ -1,0 +1,67 @@
+{
+  "currency": "USD",
+  "source": "DeepSeek official Models & Pricing",
+  "source_url": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "billing_windows": {
+    "peak_utc": "Monday-Friday 01:00-04:00 and 06:00-10:00 UTC",
+    "off_peak": "all other times"
+  },
+  "models": {
+    "deepseek-v4-flash": {
+      "aliases": [
+        "deepseek-flash"
+      ],
+      "peak": {
+        "cache_hit_input_per_million": 0.006,
+        "cache_miss_input_per_million": 0.3,
+        "output_per_million": 1.2
+      },
+      "off_peak": {
+        "cache_hit_input_per_million": 0.003,
+        "cache_miss_input_per_million": 0.15,
+        "output_per_million": 0.6
+      },
+      "note": "Legacy deepseek-v4-flash requests are served by DeepSeek-V4.1-Flash and billed at Flash price."
+    },
+    "deepseek-flash": {
+      "aliases": [
+        "deepseek-v4-flash"
+      ],
+      "peak": {
+        "cache_hit_input_per_million": 0.006,
+        "cache_miss_input_per_million": 0.3,
+        "output_per_million": 1.2
+      },
+      "off_peak": {
+        "cache_hit_input_per_million": 0.003,
+        "cache_miss_input_per_million": 0.15,
+        "output_per_million": 0.6
+      }
+    },
+    "deepseek-v4-pro": {
+      "peak": {
+        "cache_hit_input_per_million": 0.044,
+        "cache_miss_input_per_million": 1.32,
+        "output_per_million": 3.96
+      },
+      "off_peak": {
+        "cache_hit_input_per_million": 0.022,
+        "cache_miss_input_per_million": 0.66,
+        "output_per_million": 1.98
+      }
+    },
+    "qwen3.5:9b": {
+      "peak": {
+        "cache_hit_input_per_million": 0,
+        "cache_miss_input_per_million": 0,
+        "output_per_million": 0
+      },
+      "off_peak": {
+        "cache_hit_input_per_million": 0,
+        "cache_miss_input_per_million": 0,
+        "output_per_million": 0
+      },
+      "note": "Local Ollama; API cost recorded as 0."
+    }
+  }
+}
