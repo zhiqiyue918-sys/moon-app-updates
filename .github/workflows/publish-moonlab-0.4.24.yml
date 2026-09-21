@@ -1,0 +1,50 @@
+name: Publish MoonLab 0.4.24 stable
+
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-moonlab-0.4.24.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download validated private artifact
+        run: |
+          curl -L --fail --retry 3 'https://sdmntprsouthcentralus.oaiusercontent.com/files/00000000-0c34-81f7-8197-153fc31aba0a/raw?se=2026-09-21T16%3A10%3A57Z&sp=r&sv=2026-02-06&sr=b&scid=e1927fa3-30d2-5e6b-9f9e-814db3429fd3&skoid=5e713cdb-766b-475e-a3ca-8adb6cf99aa0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-21T13%3A12%3A34Z&ske=2026-09-22T13%3A12%3A34Z&sks=b&skv=2026-02-06&sig=yoeb65neImhWM29XGLVvxWCWOUKTHT3RR80anllqWXA%3D' -o /tmp/moonlab.zip
+          unzip -q /tmp/moonlab.zip -d /tmp/moonlab
+          test -f /tmp/moonlab/desktop/MoonLab-Setup-0.4.24.exe
+          echo 'c04a92e34d8a8dac5b1c809f4b73bc49f70ca5c2288fe53b8063c910165b4511  /tmp/moonlab/desktop/MoonLab-Setup-0.4.24.exe' | sha256sum -c -
+      - name: Publish installer and stable manifest
+        run: |
+          mkdir -p moon-lab/releases/0.4.24
+          cp /tmp/moonlab/desktop/MoonLab-Setup-0.4.24.exe moon-lab/releases/0.4.24/MoonLab-Setup-0.4.24.exe
+          cat > moon-lab/latest.json <<'JSON'
+          {
+            "schemaVersion": 1,
+            "app": "moon-lab",
+            "channel": "stable",
+            "version": "0.4.24",
+            "status": "stable",
+            "notes": "新增对比台：冻结 A/B/C Pipeline、Runner/聚合、Blind Quality 与 Engineering Reveal、ChatGPT 对比结果直读；不自动选冠军，不直接晋升 CURRENT。",
+            "platforms": {
+              "windows-x86_64": {
+                "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.24/MoonLab-Setup-0.4.24.exe",
+                "sha256": "c04a92e34d8a8dac5b1c809f4b73bc49f70ca5c2288fe53b8063c910165b4511"
+              }
+            }
+          }
+          JSON
+          git config user.name "MoonLab Release"
+          git config user.email "moonlab-release@users.noreply.github.com"
+          git add moon-lab/releases/0.4.24/MoonLab-Setup-0.4.24.exe moon-lab/latest.json
+          if git diff --cached --quiet; then
+            echo "Already published"
+            exit 0
+          fi
+          git commit -m "Publish MoonLab 0.4.24 stable"
+          git push
