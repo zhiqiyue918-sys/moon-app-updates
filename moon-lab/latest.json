@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.27",
+  "version": "0.4.28",
   "status": "stable",
-  "notes": "修复 Single Moon 单调用协议冲突；Comparison 成本改为按 DeepSeek cache hit/cache miss/output 与 peak/off-peak 实际计价。",
+  "notes": "修复旧版本升级后 pricing.json 未刷新；对比台新增固定 A 左 / B 中 / C 右逐题对照，直接显示 Token、缓存、耗时、成本与完整解牌。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.27/MoonLab-Setup-0.4.27.exe",
-      "sha256": "2b8a648e738b4caebc48441a401aeb2d704758f52c525b75adcf11d91a286460"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.28/MoonLab-Setup-0.4.28.exe",
+      "sha256": "a20bca70d547474520a5aff8d4d2439b3b9602032d27f14f1cdc7ffdbfb05674"
     }
   }
 }
