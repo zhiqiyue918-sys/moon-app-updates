@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.24",
+  "version": "0.4.25",
   "status": "stable",
-  "notes": "新增对比台：冻结 A/B/C Pipeline、Runner/聚合、Blind Quality 与 Engineering Reveal、ChatGPT 对比结果直读；不自动选冠军，不直接晋升 CURRENT。",
+  "notes": "修复对比台 ChatGPT 同步：自动重试瞬时 GitHub 写入冲突，并直接显示 LOCAL_ONLY 的具体原因和脱敏错误。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.24/MoonLab-Setup-0.4.24.exe",
-      "sha256": "c04a92e34d8a8dac5b1c809f4b73bc49f70ca5c2288fe53b8063c910165b4511"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.25/MoonLab-Setup-0.4.25.exe",
+      "sha256": "9bc6e16a352144fc675cd641da4cef9e7a76c31419cd5e76811e9f09cc46f6d0"
     }
   }
 }
