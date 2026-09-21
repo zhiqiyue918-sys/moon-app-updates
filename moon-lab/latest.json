@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.12",
+  "version": "0.4.14",
   "status": "stable",
-  "notes": "接通 MoonLab CURRENT → 正式 MoonCard Runtime：晋升后安全安装5个运行资产，Formal Skill 2.0 保持只读；支持启动同步、SHA 校验、历史与回滚。",
+  "notes": "新增私有历史直读交换层：跑题后可直接读取题目、牌面、Moon回答、Judge与Token/cache用量；不同步API Key、完整Prompt/Skill原文。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.12/MoonLab-Setup-0.4.12.exe",
-      "sha256": "35b4289853cce59f7b7131a472eb9fd5ad201dab50d99a7e72a9fbedc5360775"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.14/MoonLab-Setup-0.4.14.exe",
+      "sha256": "51e3ea9662c014ddddc1431f2850d10a857dd185b3de621f648bfcc244b438c5"
     }
   }
 }
