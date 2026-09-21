@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.26",
+  "version": "0.4.27",
   "status": "stable",
-  "notes": "修复对比台同步 fallback：Git fallback 现在真正带 GitHub Token；新增 Token/仓库/runtime-exchange 分支可见性探针。",
+  "notes": "修复 Single Moon 单调用协议冲突；Comparison 成本改为按 DeepSeek cache hit/cache miss/output 与 peak/off-peak 实际计价。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.26/MoonLab-Setup-0.4.26.exe",
-      "sha256": "01b38ac799721cb4df37d3228cd044050ddc76f177c93ebbe5f498a702a3caf0"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.27/MoonLab-Setup-0.4.27.exe",
+      "sha256": "2b8a648e738b4caebc48441a401aeb2d704758f52c525b75adcf11d91a286460"
     }
   }
 }
