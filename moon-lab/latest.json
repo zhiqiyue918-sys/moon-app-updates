@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.15",
+  "version": "0.4.16",
   "status": "stable",
-  "notes": "修复历史直读同步：Git 凭据不可用时可直接通过 GitHub API 写入私有 runtime-exchange；设置页新增历史直读同步 Token 配置与保存后测试。",
+  "notes": "关闭自动 Pro；修复阶段 A+B 缓存统计；Reader 固定前缀前置；Expression 去重并压缩，Judge 暂不改。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.15/MoonLab-Setup-0.4.15.exe",
-      "sha256": "764073b7e44e24d635e9b9d4f275e36003ceb5338203555c408c2a46e0007ab6"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.16/MoonLab-Setup-0.4.16.exe",
+      "sha256": "7d8a5b651db8f4afd119790befc26eff3a2063dd1edff0cd969ffd049e08a123"
     }
   }
 }
