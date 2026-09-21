@@ -1,0 +1,50 @@
+name: Publish MoonLab 0.4.27 stable
+
+on:
+  push:
+    paths:
+      - '.github/workflows/publish-moonlab-0.4.27.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download validated private artifact
+        run: |
+          curl -L --fail --retry 3 'https://sdmntprwestus3.oaiusercontent.com/files/00000000-fc94-81fd-933a-187c28f2f8cf/raw?se=2026-09-21T17%3A54%3A35Z&sp=r&sv=2026-02-06&sr=b&scid=c8f94aed-9577-5638-bc29-e1118daa5cfb&skoid=5e713cdb-766b-475e-a3ca-8adb6cf99aa0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-21T11%3A53%3A43Z&ske=2026-09-22T11%3A53%3A43Z&sks=b&skv=2026-02-06&sig=yBlaDz/8LvAw5ctRTC/EBcBDKU5vbPSmanzUQEPtm38%3D' -o /tmp/moonlab.zip
+          unzip -q /tmp/moonlab.zip -d /tmp/moonlab
+          test -f /tmp/moonlab/desktop/MoonLab-Setup-0.4.27.exe
+          echo '2b8a648e738b4caebc48441a401aeb2d704758f52c525b75adcf11d91a286460  /tmp/moonlab/desktop/MoonLab-Setup-0.4.27.exe' | sha256sum -c -
+      - name: Publish installer and stable manifest
+        run: |
+          mkdir -p moon-lab/releases/0.4.27
+          cp /tmp/moonlab/desktop/MoonLab-Setup-0.4.27.exe moon-lab/releases/0.4.27/MoonLab-Setup-0.4.27.exe
+          cat > moon-lab/latest.json <<'JSON'
+          {
+            "schemaVersion": 1,
+            "app": "moon-lab",
+            "channel": "stable",
+            "version": "0.4.27",
+            "status": "stable",
+            "notes": "修复 Single Moon 单调用协议冲突；Comparison 成本改为按 DeepSeek cache hit/cache miss/output 与 peak/off-peak 实际计价。",
+            "platforms": {
+              "windows-x86_64": {
+                "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.27/MoonLab-Setup-0.4.27.exe",
+                "sha256": "2b8a648e738b4caebc48441a401aeb2d704758f52c525b75adcf11d91a286460"
+              }
+            }
+          }
+          JSON
+          git config user.name "MoonLab Release"
+          git config user.email "moonlab-release@users.noreply.github.com"
+          git add moon-lab/releases/0.4.27/MoonLab-Setup-0.4.27.exe moon-lab/latest.json
+          if git diff --cached --quiet; then
+            echo "Already published"
+            exit 0
+          fi
+          git commit -m "Publish MoonLab 0.4.27 stable"
+          git push
