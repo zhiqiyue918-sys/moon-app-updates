@@ -1,0 +1,52 @@
+name: Publish MoonLab 0.4.16 stable
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/publish-moonlab-0.4.16.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download validated MoonLab desktop artifact
+        env:
+          SOURCE_URL: 'https://sdmntprwestcentralus.oaiusercontent.com/files/00000000-2c3c-81fb-8491-22fa28751fa9/raw?se=2026-09-21T08%3A12%3A12Z&sp=r&sv=2026-02-06&sr=b&scid=ec041f8a-d5ce-5452-aa8d-396564f5da54&skoid=5e713cdb-766b-475e-a3ca-8adb6cf99aa0&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-21T04%3A17%3A49Z&ske=2026-09-22T04%3A17%3A49Z&sks=b&skv=2026-02-06&sig=LRYpL/hVJR7XKUNlHqmQhvydi44lyBCm%2B6kRPgi22Z8%3D'
+        run: |
+          set -euo pipefail
+          curl -L --fail --retry 3 "$SOURCE_URL" -o /tmp/moonlab-0416.zip
+          rm -rf /tmp/moonlab-0416 && mkdir -p /tmp/moonlab-0416
+          unzip -q /tmp/moonlab-0416.zip -d /tmp/moonlab-0416
+          test -f /tmp/moonlab-0416/desktop/MoonLab-Setup-0.4.16.exe
+          echo '7d8a5b651db8f4afd119790befc26eff3a2063dd1edff0cd969ffd049e08a123  /tmp/moonlab-0416/desktop/MoonLab-Setup-0.4.16.exe' | sha256sum -c -
+      - name: Publish immutable installer and latest manifest
+        run: |
+          set -euo pipefail
+          mkdir -p moon-lab/releases/0.4.16
+          cp /tmp/moonlab-0416/desktop/MoonLab-Setup-0.4.16.exe moon-lab/releases/0.4.16/MoonLab-Setup-0.4.16.exe
+          cat > moon-lab/latest.json <<'JSON'
+          {
+            "schemaVersion": 1,
+            "app": "moon-lab",
+            "channel": "stable",
+            "version": "0.4.16",
+            "status": "stable",
+            "notes": "关闭自动 Pro；修复阶段 A+B 缓存统计；Reader 固定前缀前置；Expression 去重并压缩，Judge 暂不改。",
+            "platforms": {
+              "windows-x86_64": {
+                "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.16/MoonLab-Setup-0.4.16.exe",
+                "sha256": "7d8a5b651db8f4afd119790befc26eff3a2063dd1edff0cd969ffd049e08a123"
+              }
+            }
+          }
+          JSON
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add moon-lab/releases/0.4.16/MoonLab-Setup-0.4.16.exe moon-lab/latest.json
+          git commit -m 'moon-lab: publish 0.4.16 stable'
+          git push origin main
