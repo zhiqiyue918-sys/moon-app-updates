@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.16",
+  "version": "0.4.17",
   "status": "stable",
-  "notes": "关闭自动 Pro；修复阶段 A+B 缓存统计；Reader 固定前缀前置；Expression 去重并压缩，Judge 暂不改。",
+  "notes": "修复正式题库 Batch 历史同步；已有 Token 时优先走 GitHub API；启动后自动补同步本地最新一批，无需重跑。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.16/MoonLab-Setup-0.4.16.exe",
-      "sha256": "7d8a5b651db8f4afd119790befc26eff3a2063dd1edff0cd969ffd049e08a123"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.17/MoonLab-Setup-0.4.17.exe",
+      "sha256": "aa6476fc016ce20be4ee9759e2c068dccb01be7370e29998e86c4f0825551d17"
     }
   }
 }
