@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.14",
+  "version": "0.4.15",
   "status": "stable",
-  "notes": "新增私有历史直读交换层：跑题后可直接读取题目、牌面、Moon回答、Judge与Token/cache用量；不同步API Key、完整Prompt/Skill原文。",
+  "notes": "修复历史直读同步：Git 凭据不可用时可直接通过 GitHub API 写入私有 runtime-exchange；设置页新增历史直读同步 Token 配置与保存后测试。",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.14/MoonLab-Setup-0.4.14.exe",
-      "sha256": "51e3ea9662c014ddddc1431f2850d10a857dd185b3de621f648bfcc244b438c5"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.15/MoonLab-Setup-0.4.15.exe",
+      "sha256": "764073b7e44e24d635e9b9d4f275e36003ceb5338203555c408c2a46e0007ab6"
     }
   }
 }
