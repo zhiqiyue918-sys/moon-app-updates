@@ -1,0 +1,61 @@
+name: Reconstruct MoonLab 0.4.29 public installer
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'moon-lab/transport/0.4.29/**'
+
+permissions:
+  contents: write
+
+jobs:
+  reconstruct:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Reconstruct installer
+        shell: python
+        run: |
+          import base64, hashlib, json, pathlib
+          root = pathlib.Path("moon-lab/transport/0.4.29")
+          manifest = json.loads((root / "manifest.json").read_text(encoding="utf-8-sig"))
+          parts = sorted(root.glob("part-*.b64"))
+          if len(parts) != int(manifest["part_count"]):
+              raise SystemExit("part count mismatch")
+          raw = base64.b64decode("".join(p.read_text(encoding="ascii") for p in parts), validate=True)
+          if len(raw) != int(manifest["size"]):
+              raise SystemExit("size mismatch")
+          actual = hashlib.sha256(raw).hexdigest()
+          expected = str(manifest["sha256"]).lower()
+          if actual != expected:
+              raise SystemExit("sha256 mismatch")
+          version = str(manifest["version"])
+          filename = str(manifest["filename"])
+          out = pathlib.Path("moon-lab/releases") / version / filename
+          out.parent.mkdir(parents=True, exist_ok=True)
+          out.write_bytes(raw)
+          latest = {
+              "schemaVersion": 1,
+              "app": "moon-lab",
+              "channel": "stable",
+              "version": version,
+              "status": "stable",
+              "notes": "MoonLab 0.4.29 stable release.",
+              "platforms": {"windows-x86_64": {
+                  "url": f"https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/{version}/{filename}",
+                  "sha256": expected
+              }}
+          }
+          pathlib.Path("moon-lab/latest.json").write_text(json.dumps(latest, ensure_ascii=False, indent=2)+"\n", encoding="utf-8")
+      - name: Publish reconstructed installer
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add moon-lab/releases/0.4.29/MoonLab-Setup-0.4.29.exe moon-lab/latest.json
+          git commit -m "moon-lab: publish 0.4.29 stable [skip ci]"
+          git pull --rebase origin main
+          git push origin HEAD:main
