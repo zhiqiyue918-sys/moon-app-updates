@@ -2,13 +2,13 @@
   "schemaVersion": 1,
   "app": "moon-lab",
   "channel": "stable",
-  "version": "0.4.28",
+  "version": "0.4.29",
   "status": "stable",
-  "notes": "修复旧版本升级后 pricing.json 未刷新；对比台新增固定 A 左 / B 中 / C 右逐题对照，直接显示 Token、缓存、耗时、成本与完整解牌。",
+  "notes": "MoonLab 0.4.29 stable release.",
   "platforms": {
     "windows-x86_64": {
-      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.28/MoonLab-Setup-0.4.28.exe",
-      "sha256": "a20bca70d547474520a5aff8d4d2439b3b9602032d27f14f1cdc7ffdbfb05674"
+      "url": "https://raw.githubusercontent.com/zhiqiyue918-sys/moon-app-updates/main/moon-lab/releases/0.4.29/MoonLab-Setup-0.4.29.exe",
+      "sha256": "e43cb0c9b8eb7c5b464f1b04a99c07a032e462069724b5102d4f37cc4eee0b5b"
     }
   }
 }
